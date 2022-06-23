@@ -9,7 +9,7 @@
     width: 325px;
     height: 325px;
     margin: 0 auto;
-    margin-top: 80px;
+    margin-top: 25px;
 }
 
 .board-wrapper span {
@@ -36,4 +36,10 @@
     --animation-time: 0.25s;
     -webkit-transition: var(--animation-time) left, var(--animation-time) top;
     transition: var(--animation-time) left, var(--animation-time) top;
+}
+
+.timer {
+    font: bold 36px/80px Arial;
+    text-align: center;
+    margin-top: 35px;
 }

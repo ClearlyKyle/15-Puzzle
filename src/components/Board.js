@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { TimerContext } from '../context/TimerContex.js';
 import Number from './Number.js'
 
 const INITIAL_BOARD = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, '']];
 
 export default function Board()
 {
+    const contextValues = useContext(TimerContext);
+
     const [board, setBoard] = useState(INITIAL_BOARD);
+    const [firstClick, setFirstClick] = useState(true);
 
     function getCell(row, col)
     {
@@ -29,6 +33,13 @@ export default function Board()
 
     function handleOnClick(element)
     {
+        if (firstClick === true)
+        {
+            setFirstClick(false);
+            console.log("first click is made.. starting timer")
+            contextValues.handleStart();
+        }
+
         console.log(element.target)
         console.log(element.target.innerText)
         if (!element.target.innerText)

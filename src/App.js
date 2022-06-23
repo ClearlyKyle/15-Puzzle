@@ -1,12 +1,19 @@
 import React from 'react';
 import './App.css';
+import Board from './components/Board';
 
 function App()
 {
     return (
         <div className="App">
-
-        </div>
+            <div className='board-wrapper'>
+                <Board />
+            </div>
+            <div>
+                <button>Solve</button>
+                <button>Scramble</button>
+            </div>
+        </div >
     );
 }
 

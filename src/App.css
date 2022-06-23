@@ -1,0 +1,34 @@
+.board-wrapper {
+    position: relative;
+    border: 4px solid #001F1F;
+    border-radius: 9px;
+    width: 325px;
+    height: 325px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.board-wrapper span {
+    position: absolute;
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+}
+
+.board-wrapper span.number {
+    cursor: pointer;
+    font: bold 36px/80px Arial;
+    text-align: center;
+    color: #fff;
+    background: #003333;
+}
+
+.board-wrapper span[class="number "] {
+    background: transparent;
+}
+
+.board-wrapper.animate span {
+    -webkit-transition: 0.15s left, 0.15s top;
+    transition: 0.15s left, 0.15s top;
+}

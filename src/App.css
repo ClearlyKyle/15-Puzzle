@@ -24,11 +24,12 @@
     background: #003333;
 }
 
-.board-wrapper span[class="number "] {
+.board-wrapper span.blank {
     background: transparent;
 }
 
 .board-wrapper.animate span {
-    -webkit-transition: 0.15s left, 0.15s top;
-    transition: 0.15s left, 0.15s top;
+    --animation-time: 0.20s;
+    -webkit-transition: var(--animation-time) left, var(--animation-time) top;
+    transition: var(--animation-time) left, var(--animation-time) top;
 }

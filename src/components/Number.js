@@ -1,17 +1,11 @@
 import React from 'react'
 
-export default function Number({ name, number, pos })
+export default function Number({ number, pos, handleOnClick })
 {
-    function handleOnClick(event)
-    {
-        // Enables sliding animation
-        puzzle.className = 'animate';
-        shiftCell(e.target);
-    }
-
     return (
         <span
-            className={`number ${number}`}
+            className={number === '' ? 'blank' : 'number'}
+            id={`${pos[0]}-${pos[1]}`}
             onClick={handleOnClick}
             style={{
                 left: (pos[1] * 80 + 1 * pos[1] + 1) + 'px',

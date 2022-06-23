@@ -6,7 +6,7 @@ function App()
 {
     return (
         <div className="App">
-            <div className='board-wrapper'>
+            <div className='board-wrapper animate'>
                 <Board />
             </div>
             <div>

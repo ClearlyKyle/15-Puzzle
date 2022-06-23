@@ -14,13 +14,17 @@ export default function Board()
 
     function swapCells(from, to)
     {
-        const tmp = [from.className, from.innerText];
+        // from - the square we click
+        // to - the empty cell
+        const tmp_css = to.style.cssText;
+        const tmp_id = to.id;
 
-        from.className = to.className;
-        from.innerText = to.innerText;
+        // Exchanges id and style values
+        to.id = from.id;
+        from.id = tmp_id;
 
-        to.className = tmp[0];
-        to.innerText = tmp[1];
+        to.style.cssText = from.style.cssText;
+        from.style.cssText = tmp_css;
     }
 
     function handleOnClick(element)
@@ -40,6 +44,8 @@ export default function Board()
         const row = parseInt(id[0]);
         const col = parseInt(id[1]);
 
+        console.log("clicked", { row, col })
+
         // Tries to get empty adjacent cell
         var adjacent = [];
         if (row < 3) { adjacent.push(getCell(row + 1, col)); }
@@ -47,16 +53,15 @@ export default function Board()
         if (col < 3) { adjacent.push(getCell(row, col + 1)); }
         if (col > 0) { adjacent.push(getCell(row, col - 1)); }
 
-        //console.log(adjacent)
+        console.log("adjacent moves: ", { adjacent })
 
         for (const cell of adjacent)
         {
-            if (cell.className === 'blank')
+            if (cell.innerText === '')
                 swapCells(element.target, cell)
         }
 
     }
-
 
     var renderedOutput = board.map((row, y) => 
     {
@@ -64,7 +69,7 @@ export default function Board()
         {
             return <Number
                 number={item}
-                pos={[x, y]}
+                pos={[y, x]}
                 handleOnClick={handleOnClick} />;
         });
     });

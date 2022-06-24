@@ -16,6 +16,17 @@ export default function Board()
         return document.getElementById(row + '-' + col);
     }
 
+    function checkIfSolved()
+    {
+        const current_number_order = document.getElementsByClassName('board-wrapper')[0].innerText.split('\n').map(item => parseInt(item, 10));
+
+        console.log(current_number_order)
+        console.log([...Array(15).keys()].map(x => ++x))
+
+        if (JSON.stringify(current_number_order) === JSON.stringify([...Array(15).keys()].map(x => ++x)))
+            alert("SOLVED!!");
+    }
+
     function swapCells(from, to)
     {
         // from - the square we click
@@ -29,6 +40,11 @@ export default function Board()
 
         to.style.cssText = from.style.cssText;
         from.style.cssText = tmp_css;
+
+        to.innerText = from.innerText;
+        from.innerText = '';
+
+        checkIfSolved();
     }
 
     function handleOnClick(element)

@@ -30,6 +30,13 @@ html {
     width: 1px;
 }
 
+.toggle-wrapper {
+    width: var(--toggle-width);
+    display: block;
+    margin: auto;
+    /* Centering for demo */
+}
+
 .toggle {
     box-sizing: border-box;
     height: var(--toggle-height);

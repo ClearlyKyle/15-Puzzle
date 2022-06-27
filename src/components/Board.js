@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { TimerContext } from '../context/TimerContex.js';
 import Number from './Number.js'
 
@@ -40,11 +40,24 @@ export default function Board()
 
         to.style.cssText = from.style.cssText;
         from.style.cssText = tmp_css;
+    }
 
-        to.innerText = from.innerText;
-        from.innerText = '';
+    function getAdjacentCells(elementId)
+    {
+        const id = elementId.split('-');
 
-        checkIfSolved();
+        // Gets cell position indexes
+        const row = parseInt(id[0]);
+        const col = parseInt(id[1]);
+
+        // Tries to get empty adjacent cell
+        var adjacent = [];
+        if (row < 3) { adjacent.push(getCell(row + 1, col)); }
+        if (row > 0) { adjacent.push(getCell(row - 1, col)); }
+        if (col < 3) { adjacent.push(getCell(row, col + 1)); }
+        if (col > 0) { adjacent.push(getCell(row, col - 1)); }
+
+        return adjacent;
     }
 
     function handleOnClick(element)
@@ -64,21 +77,7 @@ export default function Board()
             return
         }
 
-        console.log("Which values can move")
-        const id = element.target.id.split('-');
-
-        // Gets cell position indexes
-        const row = parseInt(id[0]);
-        const col = parseInt(id[1]);
-
-        console.log("clicked", { row, col })
-
-        // Tries to get empty adjacent cell
-        var adjacent = [];
-        if (row < 3) { adjacent.push(getCell(row + 1, col)); }
-        if (row > 0) { adjacent.push(getCell(row - 1, col)); }
-        if (col < 3) { adjacent.push(getCell(row, col + 1)); }
-        if (col > 0) { adjacent.push(getCell(row, col - 1)); }
+        const adjacent = getAdjacentCells(element.target.id);
 
         console.log("adjacent moves: ", { adjacent })
 
@@ -88,7 +87,41 @@ export default function Board()
                 swapCells(element.target, cell)
         }
 
+        checkIfSolved();
     }
+
+    function RandomInt(from, to)
+    {
+        return Math.floor(Math.random() * (to - from + 1)) + from;
+    }
+
+    function shuffle()
+    {
+        console.log("Beginning to shuffle...");
+
+        const blankCell = document.getElementsByClassName('blank')[0];
+
+        // Randomly select a cell
+        let previousCell;
+
+        for (let i = 0; i < 100; i++)
+        {
+            const adjacent = getAdjacentCells(blankCell.id);
+
+            if (adjacent.includes(previousCell))
+                adjacent.slice(previousCell, 1);
+
+            previousCell = adjacent[RandomInt(0, adjacent.length - 1)];
+
+            swapCells(previousCell, blankCell);
+        }
+        console.log("Shuffle complete!");
+    }
+
+    useEffect(() =>
+    {
+        shuffle();
+    }, []);
 
     var renderedOutput = board.map((row, y) => 
     {
